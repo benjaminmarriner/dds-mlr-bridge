@@ -31,14 +31,13 @@ def perform_dds_analysis(boards:list[dict[str,Any]])->dict[str,Player]:
             if player not in player_to_object:
                 player_to_object[player] = Player(player)
 
-        if board["play"] and board["contract"]:  
-            # Only analyze the play trace when both the play trace and the contract are known (declarer, lead are always known)
+        if board["play"]:  # declarer, lead, and contract are always known
 
             analyse_play_trace_chunk.append(board) 
             deal_PBNs.append(create_deal_PBN(board))
             play_trace_PBNs.append(create_play_trace_PBN(board))
 
-        if board["auction"] and board["bidstart"]: # Only analyze the auction when auction is known (if auction and bidstart are known, so is contract) 
+        if board["auction"]: # bidstart and contract are always known
 
             analyse_auction_chunk.append(board)
             dd_table_deal_PBNs.append(create_dd_table_deal_PBN(board))
